@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  chatbot:
+    build: ./bot
+    depends_on:
+      - db_api
+    command: "python3 chatbot/startbot.py"
+    env_file:
+      - tokens.env
+    environment:
+      - "DB_API_URL=http://db_api:8000"
+
+  db_api:
+    build: ./db_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: ["bash", "./start.sh"]
+    restart: always
+    environment:
+      - "DB_HOST=db"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=56411"
+      - "DB_PORT=5432"
+      - "DB_DRIVER=postgresql"
+      - "DB_NAME=postgres"
+      - "DB_TEST_NAME=test"
+
+  db:
+      image: postgres:13
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:
