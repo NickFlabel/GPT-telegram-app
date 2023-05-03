@@ -20,13 +20,14 @@ class MessageBase(BaseModel):
         orm_mode = True
 
 
-class MessageCreate(MessageBase):
-    conversation_id: int
-
-
 class ConversationBase(BaseModel):
     name: str = 'Новый диалог'
-    user_id: int
+
+    class Config:
+        orm_mode = True
+
+class ConversationRetrieve(ConversationBase):
+    id: int
 
     class Config:
         orm_mode = True

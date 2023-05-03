@@ -53,7 +53,7 @@ class TestConversation:
 
     def create_test_conversation(self):
         conversation = schemas.ConversationBase(id=self.id, name=self.name, user_id=self.user_id)
-        db_user = self.db.query(models.User).filter(models.User.id == conversation.dict().pop('user_id')).first()
+        db_user = self.db.query(models.User).filter(models.User.id == self.user_id).first()
         db_conversation = models.Conversation(**conversation.dict(), user=db_user)
         self.db.add(db_conversation)
         self.db.commit()
@@ -86,8 +86,8 @@ class TestMessage:
 
     
     def create_test_message(self):
-        message = schemas.MessageCreate(id=self.id, content=self.content, role=self.role, conversation_id=self.conversation_id)
-        db_conv = self.db.query(models.Conversation).filter(models.Conversation.id == message.dict().pop('conversation_id')).first()
+        message = schemas.MessageBase(id=self.id, content=self.content, role=self.role, conversation_id=self.conversation_id)
+        db_conv = self.db.query(models.Conversation).filter(models.Conversation.id == self.conversation_id).first()
         db_message = models.Message(**message.dict(), conversation=db_conv)
         self.db.add(db_message)
         self.db.commit()
@@ -100,4 +100,10 @@ class TestMessage:
     
     def get_message_id(self):
         return self.message.id
+    
+    def get_content(self):
+        return self.message.content
+    
+    def get_role(self):
+        return self.message.role
     
