@@ -42,6 +42,13 @@ async def create_conversation(user_id: int, new_conversation: schemas.Conversati
     return Conversation(db).create_conversation(conversation=new_conversation, user_id=user_id)
 
 
+@app.delete('/users/{user_id}/conversations/{conversation_id}', status_code=status.HTTP_204_NO_CONTENT)
+async def delete_conversation(user_id: int, conversation_id: int, db: Session = Depends(get_db)):
+    User(db).get_user_or_404(user_id=user_id)
+    Conversation(db).get_conversation_or_404(conversation_id=conversation_id, user_id=user_id)
+    Conversation(db).delete_conversation(conversation_id=conversation_id, user_id=user_id)
+
+
 @app.get('/users/{user_id}/conversations/{conversation_id}/messages', response_model=List[schemas.MessageBase])
 async def get_messages(user_id: int, conversation_id: int, db: Session = Depends(get_db)):
     User(db).get_user_or_404(user_id=user_id)

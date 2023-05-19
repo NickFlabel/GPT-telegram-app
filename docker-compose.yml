@@ -4,7 +4,7 @@ services:
     build: ./bot
     depends_on:
       - db_api
-    command: "python3 chatbot/startbot.py"
+    command: "python3 startbot.py"
     env_file:
       - tokens.env
     environment:

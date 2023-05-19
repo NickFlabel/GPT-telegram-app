@@ -6,6 +6,8 @@ WORKDIR .
 # Copy project
 COPY ./requirements.txt ./requirements.txt
 COPY ./chatbot ./chatbot
+COPY ./startbot.py ./startbot.py
+COPY ./messages.json ./messages.json
 
 # Install dependencies
 RUN pip install -r requirements.txt
