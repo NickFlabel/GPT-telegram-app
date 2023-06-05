@@ -1,4 +1,4 @@
-from .db_api import Conversation
+from .data_api import Conversation, Message
 from telegram.ext import ContextTypes
 from telegram import Update
 from .buttons import ButtonDirector
@@ -10,7 +10,7 @@ async def conversation_options(update: Update, context: ContextTypes.DEFAULT_TYP
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Выберите действие:', reply_markup=InlineKeyboardMarkup(buttons))
 
 async def delete_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE, id: int, *args, **kwargs):
-    result = await Conversation(update.effective_user.id).delete_conversation(id)
+    result = await Conversation(update, context).delete(conv_id=id)
     if result:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f'Диалог с id {id} удален.')
         return True
@@ -26,7 +26,7 @@ async def create_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Введите название диалога:')
 
 async def view_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE, id: int, *args, **kwargs):
-    messages = await Conversation(update.effective_user.id).get_conversation(id)
+    messages = await Message(update, context).get(conv_id=id)
     for message in messages:
         if message['role'] == 'user':
             await context.bot.send_message(chat_id=update.effective_chat.id, text=f'Вы: {message["content"]}')

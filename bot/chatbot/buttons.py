@@ -1,4 +1,8 @@
 from telegram import InlineKeyboardButton
+import json
+
+with open('messages.json', 'r') as f:
+    MESSAGES = json.load(f)
 
 class ButtonBuilder:
     def __init__(self, name: str, id: int):
@@ -22,7 +26,7 @@ class ButtonBuilder:
         return InlineKeyboardButton(self.text, callback_data=callback_data)
     
     def build_conversation_create_button(self):
-        self.text = f'Создать диалог'
+        self.text = MESSAGES['buttons']['create_new_conversation']
         callback_data = f'ConversationCreate_{self.name}_{self.id}'
         return InlineKeyboardButton(self.text, callback_data=callback_data)
     

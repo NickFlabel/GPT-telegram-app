@@ -2,7 +2,6 @@ from .. import callback_handlers
 from .fixtures import update, context, urls
 import pytest
 from .utils import URLDirector, URLBuilder
-from ..gpt_api import get_answer_from_gpt_3_5
 
 global_user_id = 1234
 pytestmark = pytest.mark.parametrize('update', [{'user_id': global_user_id}], indirect=True)
@@ -14,6 +13,7 @@ async def test_callback_handler_conversation_options(context, update):
 
 @pytest.mark.asyncio
 async def test_delete_conversation(context, update, urls):
+    context.user_data['current_conversation'] = 1
     URLBuilder(urls, user_id=global_user_id, conversation_id=1).build_delete_conversation_url(status=204)
     result = await callback_handlers.delete_conversation(update, context, 1)
     assert result == True
@@ -21,6 +21,7 @@ async def test_delete_conversation(context, update, urls):
 
 @pytest.mark.asyncio
 async def test_delete_conversation_error(context, update, urls):
+    context.user_data['current_conversation'] = 1
     URLBuilder(urls, user_id=global_user_id, conversation_id=1).build_delete_conversation_url(status=400)
     result = await callback_handlers.delete_conversation(update, context, 1)
     assert result == False

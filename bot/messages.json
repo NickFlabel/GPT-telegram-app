@@ -4,10 +4,24 @@
     },
     "user": {
         "creating": "Создаем пользователя...",
-        "found": "Пользователь найден"
+        "found": "Пользователь найден",
+        "error": "При создании пользователя произошла ошибка. Попробуйте еще раз и сообщите администратору"
     },
     "conversation": {
         "creating": "Создаем диалог...",
-        "created": "Диалог создан"
+        "created": "Диалог создан",
+        "no_current_conversation": "У вас нет текущего диалога.",
+        "current_conversation_found": "Текущий диалог: ",
+        "create_new_conversation": "Создать диалог:",
+        "dialog_choice": "Выберите диалог:"
+    },
+    "message": {
+        "acknolegment": "Получаем ответ от GPT 3.5..."
+    },
+    "errors": {
+        "server_error": "Ошибка сервера. Попробуйте позже."
+    },
+    "buttons": {
+        "create_new_conversation": "Создать диалог"
     }
 }
