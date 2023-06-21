@@ -9,7 +9,7 @@ services:
       - tokens.env
     environment:
       - "DB_API_URL=http://db_api:8000"
-      - "GPR_URL='https://api.openai.com/v1/chat/completions'"
+      - "GPT_URL=https://api.openai.com/v1/chat/completions"
 
   db_api:
     build: ./db_api
