@@ -1,5 +1,6 @@
 Telegram Bot App
-The Telegram GPT3.5 Bot is a Python-based application that allows users to access the power of GPT-3.5 through a Telegram bot. This application is divided into two services: the Telegram bot app and the database management app.
+
+The Telegram Bot is a Python-based application that allows users to access the power of GPT-3.5 through a Telegram bot. This application is divided into two services: the Telegram bot app and the database management app.
 Features
 
 Telegram Bot Service
